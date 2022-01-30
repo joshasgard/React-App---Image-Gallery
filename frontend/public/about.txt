@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Unica One
+- Font Author: Copyright (c) 2012, Eduardo Tunni (http://www.tipo.net.ar), with Reserved Font Name 'Unica'
+- Font Source: http://fonts.gstatic.com/s/unicaone/v11/DPEuYwWHyAYGVTSmalshdtffuEY7FA.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

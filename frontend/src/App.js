@@ -2,12 +2,15 @@ import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import Search from './components/Search';
+import ImageCard from './components/ImageCard';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
 
 const App = () => {
   const [word, setWord] = useState(''); //using state hooks to make the search box user input available
   //as user is typing - called controlled component
+  const [images, setImages] = useState([]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault(); //prevents default behaviour of the event, (i.e. default to follow link on form submit)
@@ -17,7 +20,7 @@ const App = () => {
     )
       .then((result) => result.json())
       .then((result) => {
-        console.log(result);
+        setImages([{ ...result, title: word }, ...images]);
       })
       .catch((error) => {
         console.log(error);
@@ -29,6 +32,15 @@ const App = () => {
     <div>
       <Header title="Image Search Gallery" />
       <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit} />
+      <Container className="mt-4">
+        <Row xs={1} md={2} lg={3}>
+          {images.map((image, i) => (
+            <Col key={i} className="pb-3">
+              <ImageCard image={image} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
 };

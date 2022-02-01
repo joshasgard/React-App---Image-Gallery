@@ -20,6 +20,7 @@ const App = () => {
       .catch((error) => {
         console.log(error);
       })
+      setWord('');
   }
 
   return (

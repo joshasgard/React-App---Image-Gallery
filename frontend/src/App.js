@@ -6,7 +6,7 @@ import ImageCard from './components/ImageCard';
 import { Container, Row, Col } from 'react-bootstrap';
 import Welcome from './components/Welcome';
 
-const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
+const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
 
 const App = () => {
   const [word, setWord] = useState(''); //using state hooks to make the search box user input available
@@ -15,9 +15,7 @@ const App = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault(); //prevents default behaviour of the event, (i.e. default to follow link on form submit)
-    fetch(
-      `https://api.unsplash.com//photos/random/?query=${word}&client_id=${UNSPLASH_KEY}`
-    )
+    fetch(`${API_URL}/new-image?query=${word}`)
       .then((result) => result.json())
       .then((result) => {
         setImages([{ ...result, title: word }, ...images]);

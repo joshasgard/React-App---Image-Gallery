@@ -1,19 +1,20 @@
-from distutils.debug import DEBUG
 import os
 import requests
 from flask import Flask, request
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 load_dotenv(dotenv_path = "./.env.local") #add unsplash key to app environment variable
 
 UNSPLASH_KEY = os.environ.get("UNSPLASH_KEY", "")
 UNSPLASH_URL = "https://api.unsplash.com//photos/random/"
-DEBUG=bool(os.environ("DEBUG", True))
+DEBUG=bool(os.environ.get("DEBUG", True))
 
 if not UNSPLASH_KEY:
   raise EnvironmentError("Please create a .env.local file and add UNSPLASH KEY")
 
 app = Flask(__name__)
+CORS(app)
 
 app.config["DEBUG"] = DEBUG
 

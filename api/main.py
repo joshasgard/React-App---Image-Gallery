@@ -28,10 +28,10 @@ def new_image():
     for response. 
     args: 
         None
-    Returns:
+    Return:
         data (json) - response data containing image details
     '''
-    word = request.args.get("query")  #get request from front-end application to API
+    word = request.args.get("query")  # get request from front-end application to API
 
     headers = {
         "Accept-Version": "v1",
@@ -42,6 +42,7 @@ def new_image():
     # request from API to unsplash API
     data = response.json()
     return data
+
 
 
 if __name__ == "__main__":

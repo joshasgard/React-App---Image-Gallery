@@ -2,6 +2,8 @@ FROM python:3.10
 
 WORKDIR /app
 
+ENV FLASK_ENV=development
+
 EXPOSE 5050
 
 COPY Pipfile ./

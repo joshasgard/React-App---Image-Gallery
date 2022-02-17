@@ -4,7 +4,9 @@ from flask import Flask, request
 from dotenv import load_dotenv
 from flask_cors import CORS
 
-load_dotenv(dotenv_path= "./.env.local")   # add unsplash key to app environment variable
+
+load_dotenv(dotenv_path= "./.env.local")   # load predefined environment 
+                                            # variable to app
 
 UNSPLASH_KEY = os.environ.get("UNSPLASH_KEY", "")
 UNSPLASH_URL = "https://api.unsplash.com//photos/random/"
@@ -17,6 +19,7 @@ app = Flask(__name__)
 CORS(app)  # Cors needs to be enabled on the flask app to allow the cross-origin resource sharing btw the different front-end and backend domains (or servers)
 
 app.config["DEBUG"] = DEBUG
+
 
 
 @app.route("/new-image")

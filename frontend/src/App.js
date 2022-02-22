@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import Search from './components/Search';
 import ImageCard from './components/ImageCard';
 import { Container, Row, Col } from 'react-bootstrap';
 import Welcome from './components/Welcome';
+import MyErrorBoundary from './components/MyErrorBoundary';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
 
@@ -13,16 +15,17 @@ const App = () => {
   //as user is typing - called controlled component
   const [images, setImages] = useState([]);
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = async (e) => {
     e.preventDefault(); //prevents default behaviour of the event, (i.e. default to follow link on form submit)
-    fetch(`${API_URL}/new-image?query=${word}`)
-      .then((result) => result.json())
-      .then((result) => {
-        setImages([{ ...result, title: word }, ...images]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log('sending fetch request');
+
+    try {
+      const result = await axios.get(`${API_URL}/new-image?query=${word}`);
+      setImages([{ ...result.data, title: word }, ...images]);
+    } catch (error) {
+      console.log(error);
+    }
+
     setWord('');
   };
   const handleDeleteImage = (id) => {

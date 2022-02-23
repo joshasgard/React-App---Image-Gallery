@@ -49,8 +49,11 @@ def new_image():
     data = response.json()
     return data
 
-@app.route("/images",methods=["GET", "POST"])
+@app.route("/images", methods=["GET", "POST"])
 def images():
+    """
+        API retrieves saved images into MongoDB and saves desired image to DB.
+    """
     if request.method == "GET":
         # read images from database
         images = images_collection.find({})

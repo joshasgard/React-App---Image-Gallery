@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
@@ -6,7 +6,7 @@ import Search from './components/Search';
 import ImageCard from './components/ImageCard';
 import { Container, Row, Col } from 'react-bootstrap';
 import Welcome from './components/Welcome';
-import MyErrorBoundary from './components/MyErrorBoundary';
+// import MyErrorBoundary from './components/MyErrorBoundary';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
 
@@ -14,6 +14,16 @@ const App = () => {
   const [word, setWord] = useState(''); //using state hooks to make the search box user input available
   //as user is typing - called controlled component
   const [images, setImages] = useState([]);
+
+  const getSavedImages = async () => {
+    try {
+      const result = await axios.get(`${API_URL}/images`);
+      setImages(result.data || []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => getSavedImages(), []);
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault(); //prevents default behaviour of the event, (i.e. default to follow link on form submit)

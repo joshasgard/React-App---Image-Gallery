@@ -25,15 +25,14 @@ CORS(app)  # Cors needs to be enabled on the flask app to allow the cross-origin
 app.config["DEBUG"] = DEBUG
 
 
-
 @app.route("/new-image")
 def new_image():
 
     '''
     Custom API function between front-end react-app and unsplash api.
     Receives request from front-end client and then sends a get request to unsplash api
-    for response. 
-    args: 
+    for response.
+    args:
         None
     Return:
         data (json) - response data containing image details
@@ -48,6 +47,7 @@ def new_image():
     # request from API to unsplash API
     data = response.json()
     return data
+
 
 @app.route("/images", methods=["GET", "POST"])
 def images():
@@ -65,6 +65,7 @@ def images():
         result = images_collection.insert_one(image)
         inserted_id = result.inserted_id
         return {"inserted_id": inserted_id}
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5050)

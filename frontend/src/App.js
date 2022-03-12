@@ -42,6 +42,11 @@ const App = () => {
     setImages(images.filter((image) => image.id !== id));
   };
 
+  const handleSaveImage = async (id) =>> {
+    const imageToBeSaved = images.find((image) => image.id ===id);
+    const result = await axios.post(`${API_URL}/images`, imageToBeSaved);
+
+  }
   return (
     <div>
       <Header title="Image Search Gallery" />

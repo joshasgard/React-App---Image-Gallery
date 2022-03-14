@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 from flask_cors import CORS
 from mongo_client import mongo_client
 
-gallery = mongo_client.gallery # create gallery database in mongo client
-images_collection = gallery.images # create collection of images
+gallery = mongo_client.gallery  # create gallery database in mongo client
+images_collection = gallery.images  # create collection of images
 
-load_dotenv(dotenv_path= "./.env.local")   # load predefined environment 
+load_dotenv(dotenv_path= "./.env.local")   # load predefined environment
                                             # variable to app
 
 UNSPLASH_KEY = os.environ.get("UNSPLASH_KEY", "")
@@ -65,6 +65,21 @@ def images():
         result = images_collection.insert_one(image)
         inserted_id = result.inserted_id
         return {"inserted_id": inserted_id}
+
+
+@app.route("/images/<image_id>", methods=["DELETE"])
+def delete_image(image_id):
+    """
+        Function deletes image with ID==image_id from MongoDB
+    """
+    if request.method == "DELETE":
+        result = images_collection.delete_one({"_id": image_id})
+        print(result.deleted_count)
+        if not result:
+            return {"error": "Image wasn't deleted. Please try again"}, 500
+        if result and not result.deleted_count:
+            return {"error": "Image not found"}, 404
+        return {"deleted_id": image_id, "status": 204}
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 # Image Gallery App
+![home_page](https://user-images.githubusercontent.com/67300602/158285707-79f2912b-ca5c-43f1-9a47-4b37ff4e19aa.PNG)
 
 ## Getting Started with Create React App
 

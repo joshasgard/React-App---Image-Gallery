@@ -1,3 +1,4 @@
+// Import components, modules and stylesheets
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,15 +11,18 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Welcome from './components/Welcome';
 import Spinner from './components/Spinner';
 
+// Backend API URL
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
 
+// React app
 const App = () => {
-  const [word, setWord] = useState(''); //using state hooks to make the search box user input available
-  //as user is typing - called controlled component
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [word, setWord] = useState(''); //using state hooks to make the search box input available
+  //as user is typing - (controlled component)
+  const [images, setImages] = useState([]); // state hook for images
+  const [loading, setLoading] = useState(true); // state hook for spinner
 
   const getSavedImages = async () => {
+    // Event listener to save images
     try {
       const result = await axios.get(`${API_URL}/images`);
       setImages(result.data || []);
@@ -32,6 +36,7 @@ const App = () => {
   useEffect(() => getSavedImages(), []);
 
   const handleSearchSubmit = async (e) => {
+    // Event listener to send search query to backend api
     e.preventDefault(); //prevents default behaviour of the event, (i.e. default to follow link on form submit)
     console.log('sending fetch request');
 
@@ -75,7 +80,7 @@ const App = () => {
             image.id === id ? { ...image, saved: true } : image
           )
         );
-        toast.info(`Image ${imageToBeSaved.toUpperCase()} was saved`);
+        toast.info(`Image ${imageToBeSaved.title.toUpperCase()} was saved`);
       }
     } catch (error) {
       console.log(error);
